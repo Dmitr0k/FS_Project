@@ -322,7 +322,18 @@ li {
 }
 
 .btn-opt:hover {
-    border: 2px solid #ff8716;
+    border: 1px solid #ff8716;
+    transform: scale3d(1.1,1.1,1.1);
+}
+
+.btn-opt:active {
+    background-color: #ff8716;
+    border: 1px solid #ff8716;
+    transform: scale3d(1.1,1.1,1.1);
+}
+
+.btn-opt-choosed {
+    border: 1px solid #ff8716;
     transform: scale3d(1.1,1.1,1.1);
     background-color: #ffbb7b;
 }
