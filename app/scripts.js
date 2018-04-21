@@ -3,7 +3,7 @@ window.onload = function () {
         el: ".shop-app",
         data: {
             cart: [],
-            cost: "5 - 7",
+            cost: "5-7",
             sizes: {
                 s: false,
                 m: false,
