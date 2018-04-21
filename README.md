@@ -2,7 +2,7 @@
 
 Hi FS_team! You can start doing it right now!
 
-# To start, simply type bash:
+# To start, simply type in bash:
 
   >$ npm install
   ><p>$ gulp
