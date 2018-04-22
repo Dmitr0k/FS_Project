@@ -44,6 +44,33 @@ window.onload = function () {
                 } else if (!this.types.regular && this.types.warm) {
                     this.cost = "7"
                 }
+            },
+            add_to_cart: function () {
+                var item = {
+                    size: "",
+                    gender: "",
+                    type: "",
+                    cost: ""
+                };
+                for (sz in this.sizes) {
+                    if (this.sizes[sz]) {
+                        item.size = sz;
+                    } 
+                }
+                for (gen in this.genders) {
+                    if (this.genders[gen]) {
+                        item.gender = gen;
+                    }
+                }
+                for (tp in this.types) {
+                    if (this.types[tp]) {
+                        item.type = tp;
+                    }
+                }
+                if (item.size && item.gender && item.type) {
+                    item.cost = this.cost;
+                    this.cart.push(item);
+                }
             }
         }
     })

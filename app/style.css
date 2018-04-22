@@ -158,6 +158,7 @@ li {
     color: #ffffff;
     margin: 30px;
     margin-bottom: 0;
+    outline: none;
 }
 
 .pink-btn {
@@ -177,6 +178,7 @@ li {
     text-align: center;
     color: #ffffff;
     margin: 25px;
+    outline: none;
 }
 
 .btns-img {
@@ -319,23 +321,27 @@ li {
     line-height: normal;
     letter-spacing: 2.2px;
     text-align: center;
+    outline: none;
 }
 
 .btn-opt:hover {
     border: 1px solid #ff8716;
     transform: scale3d(1.1,1.1,1.1);
+    outline: none;
 }
 
 .btn-opt:active {
     background-color: #ff8716;
     border: 1px solid #ff8716;
     transform: scale3d(1.1,1.1,1.1);
+    outline: none;
 }
 
 .btn-opt-choosed {
     border: 1px solid #ff8716;
     transform: scale3d(1.1,1.1,1.1);
     background-color: #ffbb7b;
+    outline: none;
 }
 
 .size-btns {

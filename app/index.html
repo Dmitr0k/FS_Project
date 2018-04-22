@@ -18,7 +18,7 @@
             <a href="#" class="nav_logo"> FASION SOCKS</a>
             <a href="#" class="nav_shop">SHOP</a>
             <img src="img/cart.png" class="img_nav_cart">
-            <a href="#" class="nav_cart">CART(0)</a>
+            <a href="#" class="nav_cart">CART({{cart.length}})</a>
         </div>
 
         <div class="shop-page">
@@ -55,8 +55,8 @@
                 </div>
 
                 <div class="btns-buy">
-                    <button class="pink-btn">Оформить заказ</button>
-                    <button class="pink-btn">Положить в корзину</button>
+                    <!-- <button class="pink-btn">Оформить заказ</button> -->
+                    <button class="pink-btn" @click="add_to_cart">Положить в корзину</button>
                 </div>
             </div>
         </div>
