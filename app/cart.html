@@ -28,21 +28,22 @@
                 <div class="cart-title">
                     Shopping Cart
                 </div>
-                <div class="cart-item" v-for="(item, index) in cart">
-                    <a @click="delete_from_cart(index)"><i class="fas fa-times fa-2x cart-delete"></i></a>
-                    <!-- <img src="http://placehold.it/170x120/" class="cart-bg-socks"> -->
-                    <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
-                    <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
-                    <div class="cart-text-item cart-info-block">
-                        Socks {{item.gender}} {{item.type}}
+                <transition-group name="fade">  
+                    <div class="cart-item" v-for="(item, index) in cart" v-bind:key="item">
+                        <a @click="delete_from_cart(index)"><i class="fas fa-times fa-2x cart-delete"></i></a>
+                        <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
+                        <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
+                        <div class="cart-text-item cart-info-block">
+                            Socks {{item.gender}} {{item.type}}
+                        </div>
+                        <div class="cart-text-item cart-size-block">
+                            Size: {{item.size}}
+                        </div>
+                        <div class="cart-text-item">
+                            ${{item.cost}}
+                        </div>
                     </div>
-                    <div class="cart-text-item cart-size-block">
-                        Size: {{item.size}}
-                    </div>
-                    <div class="cart-text-item">
-                        ${{item.cost}}
-                    </div>
-                </div>
+                </transition-group>
             </div>
             <div class="empty_cart" v-else>
                 <h3>Ваша корзина пуста!</h3>
