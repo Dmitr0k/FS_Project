@@ -1,8 +1,10 @@
-window.onload = function () {
-    var app = new Vue ({
+const STORAGE_KEY = 'fs_cart'
+
+    var shop_app = new Vue ({
         el: ".shop-app",
         data: {
             cart: [],
+            user_picture: "http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg",
             cost: "5 - 7",
             sizes: {
                 s: false,
@@ -19,6 +21,14 @@ window.onload = function () {
             types: {
                 regular: false,
                 warm: false
+            }
+        },
+        created () {
+            this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        },
+        computed: {
+            user_picture_html: function () {
+                return this.user_picture ? "<img src=\"" + this.user_picture + "\" class=\"pictures user-picture\">" : "";
             }
         },
         methods: {
@@ -70,8 +80,26 @@ window.onload = function () {
                 if (item.size && item.gender && item.type) {
                     item.cost = this.cost;
                     this.cart.push(item);
+                    var cart_json = JSON.stringify(this.cart);
+                    localStorage.setItem(STORAGE_KEY, cart_json);
                 }
             }
         }
-    })
-}
+    });
+
+    var cart_app = new Vue ({
+        el: ".cart-app",
+        data: {
+            cart: []
+        },
+        created () {
+            this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        },
+        methods: {
+            delete_from_cart: function (index) {
+                this.cart.splice(index, 1);
+                var cart_json = JSON.stringify(this.cart);
+                localStorage.setItem(STORAGE_KEY, cart_json);
+            }
+        }
+    });

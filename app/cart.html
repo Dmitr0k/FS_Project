@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="frameworks/bootstrap.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <script src="frameworks/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Shop</title>
+</head>
+
+<body>
+    <div class="cart-app">
+        <div class="header">
+            <a href="#" class="nav_about">ABOUT US</a>
+            <a href="#" class="nav_faq">FAQ</a>
+            <a href="#" class="nav_logo"> FASION SOCKS</a>
+            <a href="index.html" class="nav_shop">SHOP</a>
+            <i class="fas fa-shopping-cart img_nav_cart"></i>
+            <a href="cart.html" class="nav_cart">CART({{cart.length}})</a>
+        </div>
+        <div class="cart-cont">
+            <div class="cart-items" v-if="cart.length">
+                <div class="cart-title">
+                    Shopping Cart
+                </div>
+                <div class="cart-item" v-for="(item, index) in cart">
+                    <a @click="delete_from_cart(index)"><i class="fas fa-times fa-2x cart-delete"></i></a>
+                    <img src="http://placehold.it/170x120/" class="cart-bg-socks">
+                    <div class="cart-text-item cart-info-block">
+                        Socks {{item.gender}} {{item.type}}
+                    </div>
+                    <div class="cart-text-item cart-size-block">
+                        Size: {{item.size}}
+                    </div>
+                    <div class="cart-text-item">
+                        ${{item.cost}}
+                    </div>
+                </div>
+            </div>
+            <div class="empty_cart" v-else>
+                <h3>Ваша корзина пуста!</h3>
+                <h6>Вернитесь к покупкам!</h5>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="cont-footer">
+                <div class="left-footer">
+                    <img src="img/logo.png" class="logo-footer">
+                    <ul>
+                        <li>
+                            <a href="#" class="a_footer">Home</a>
+                        </li>
+                        <li>
+                            <a href="#" class="a_footer">Blog</a>
+                        </li>
+                        <li>
+                            <a href="#" class="a_footer">About</a>
+                        </li>
+                        <li>
+                            <a href="#" class="a_footer">FAQ</a>
+                        </li>
+                    </ul>
+                    <div class="social">
+                        <i class="fab fa-vk fa-2x soc-fa"></i>
+                        <i class="fab fa-facebook-f fa-2x soc-fa"></i>
+                        <i class="fab fa-instagram fa-2x soc-fa"></i>
+                        <i class="fab fa-twitter fa-2x soc-fa"></i>
+                    </div>
+                    <p class="footer-rights">© 2018 Fasion socks company.  All rights reserved.</p>
+                </div>
+                <div class="right-footer">
+                    <h4 class="contact-title">Contact Us</h4>
+                    <div class="callback-form">
+                        <input type="email" class="input-email" placeholder="example@email.com">
+                        <textarea name="message" class="text-message" placeholder="Your message here"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
