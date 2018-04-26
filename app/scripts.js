@@ -57,6 +57,7 @@ const STORAGE_KEY = 'fs_cart'
             },
             add_to_cart: function () {
                 var item = {
+                    user_picture: "",
                     size: "",
                     gender: "",
                     type: "",
@@ -78,6 +79,7 @@ const STORAGE_KEY = 'fs_cart'
                     }
                 }
                 if (item.size && item.gender && item.type) {
+                    item.user_picture = this.user_picture;
                     item.cost = this.cost;
                     this.cart.push(item);
                     var cart_json = JSON.stringify(this.cart);
@@ -100,6 +102,10 @@ const STORAGE_KEY = 'fs_cart'
                 this.cart.splice(index, 1);
                 var cart_json = JSON.stringify(this.cart);
                 localStorage.setItem(STORAGE_KEY, cart_json);
+            },
+            isValidUrl: function (index) {
+                var objRE = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i;
+                return objRE.test(this.cart[index].user_picture);
             }
         }
     });

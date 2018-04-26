@@ -30,7 +30,9 @@
                 </div>
                 <div class="cart-item" v-for="(item, index) in cart">
                     <a @click="delete_from_cart(index)"><i class="fas fa-times fa-2x cart-delete"></i></a>
-                    <img src="http://placehold.it/170x120/" class="cart-bg-socks">
+                    <!-- <img src="http://placehold.it/170x120/" class="cart-bg-socks"> -->
+                    <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
+                    <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
                     <div class="cart-text-item cart-info-block">
                         Socks {{item.gender}} {{item.type}}
                     </div>
