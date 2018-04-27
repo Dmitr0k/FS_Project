@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,9 +27,11 @@
                 <div class="cart-title">
                     Shopping Cart
                 </div>
-                <transition-group name="fade">  
+                <transition-group name="fade">
                     <div class="cart-item" v-for="(item, index) in cart" v-bind:key="item">
-                        <a @click="delete_from_cart(index)"><i class="fas fa-times fa-2x cart-delete"></i></a>
+                        <a @click="delete_from_cart(index)">
+                            <i class="fas fa-times fa-2x cart-delete"></i>
+                        </a>
                         <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
                         <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
                         <div class="cart-text-item cart-info-block">
@@ -45,6 +46,53 @@
                     </div>
                 </transition-group>
             </div>
+            <form class="order" v-if="cart.length">
+                <h3 class="mb-2 text-center">Please fill in your details</h3>
+                <h6 class="mb-5 text-center">in order to we can send you an order</h6>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="firstname">First name</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="First name">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email-adress">Email</label>
+                    <input type="email" class="form-control" id="email-adress" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputCoutry">Country</label>
+                        <select id="inputCoutry" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>USA</option>
+                            <option>Ukraine</option>
+                            <option>Poland</option>
+                            <option>Germany</option>
+                            <option>Russia</option>
+                            <option>Angola</option>
+                            <option>China</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+                <h3 class="mt-5 mb-5">All total: ${{total_cost}}</h3>
+                <button type="submit" class="btn btn-primary">Buy All</button>
+            </form>
             <div class="empty_cart" v-else>
                 <h3>Ваша корзина пуста!</h3>
                 <h6>Вернитесь к покупкам!</h5>
@@ -81,6 +129,7 @@
                     <div class="callback-form">
                         <input type="email" class="input-email" placeholder="example@email.com">
                         <textarea name="message" class="text-message" placeholder="Your message here"></textarea>
+                        <button type="button" class="btn btn-dark mt-3">Send</button>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ const STORAGE_KEY = 'fs_cart'
         el: ".shop-app",
         data: {
             cart: [],
-            user_picture: "http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg",
+            user_picture: "",
             cost: "5 - 7",
             sizes: {
                 s: false,
@@ -97,6 +97,15 @@ const STORAGE_KEY = 'fs_cart'
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         },
+        computed: {
+            total_cost: function () {
+                var tc = 0;
+                for (item in this.cart) {
+                    tc += parseInt(this.cart[item].cost);
+                }
+                return tc;
+            }
+        },
         methods: {
             delete_from_cart: function (index) {
                 this.cart.splice(index, 1);
@@ -104,8 +113,8 @@ const STORAGE_KEY = 'fs_cart'
                 localStorage.setItem(STORAGE_KEY, cart_json);
             },
             isValidUrl: function (index) {
-                var objRE = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i;
-                return objRE.test(this.cart[index].user_picture);
+                var regexp_url = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+                return regexp_url.test(this.cart[index].user_picture);
             }
         }
     });
