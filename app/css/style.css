@@ -1,16 +1,16 @@
 @font-face {
     font-family: 'LucidaGrande';
-    src: url('font/LucidaGrande.ttf');
+    src: url('../font/LucidaGrande.ttf');
 }
 
 @font-face {
     font-family: 'Herculanum';
-    src: url('font/Herculanum.ttf');
+    src: url('../font/Herculanum.ttf');
 }
 
 @font-face {
-    font-family: 'BradHI';
-    src: url('font/BRADHI.ttf');
+    font-family: 'Bradley';
+    src: url('../font/Bradley.ttf');
 }
    
 body {
@@ -50,6 +50,16 @@ li {
     min-width: 1470px;
 }
 
+.header-cont {
+    margin: auto;
+    display: flex;
+    height: 74px;
+    justify-content: space-around;
+    align-items: center;
+    width: 1200px;
+
+}
+
 .shop-page {
     position: relative;
     height: 900px;
@@ -69,10 +79,8 @@ li {
 .nav_about {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    margin-right: 63px;
     color: #ffffff;
     display: inline-block;
-    margin-top: 31px;
 }
 
 .nav_about:hover {
@@ -83,7 +91,6 @@ li {
 .nav_faq {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    margin-right: 196px;
     color: #ffffff;
 }
 
@@ -95,7 +102,6 @@ li {
 .nav_shop {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    margin-left: 155px;
     color: #ffffff;
 }
 
@@ -105,14 +111,12 @@ li {
 }
 
 .img_nav_cart {
-    margin-left: 75px;
     color: #ffffff;
 }
 
 .nav_cart {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    margin-left: 5px;
     color: #ffffff;
     display: inline-block;
     width: 70px;
@@ -334,7 +338,7 @@ li {
     background-color: #ffffff;
     border: 1px solid #563023;
     color: #504032;
-    font-family: BradHI;
+    font-family: Bradley;
     font-size: 24px;
     font-weight: bold;
     font-style: normal;
@@ -391,7 +395,7 @@ li {
 .cost {
     margin-top: 130px;
     text-align: center;
-    font-family: BradHI;
+    font-family: Bradley;
     font-size: 50px;
     font-weight: bold;
 }

@@ -7,18 +7,23 @@
     <link rel="stylesheet" href="frameworks/bootstrap.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
     <script src="frameworks/vue.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Shop</title>
 </head>
 <body>
     <div class="shop-app">
         <div class="header">
-            <a href="#" class="nav_about">ABOUT US</a>
-            <a href="#" class="nav_faq">FAQ</a>
-            <a href="#" class="nav_logo"> FASION SOCKS</a>
-            <a href="#" class="nav_shop">SHOP</a>
-            <i class="fas fa-shopping-cart img_nav_cart"></i>
-            <a href="cart.html" class="nav_cart">CART({{cart.length}})</a>
+            <div class="header-cont">
+                <a href="#" class="nav_about">ABOUT US</a>
+                <!-- <a href="#" class="nav_faq">FAQ</a> -->
+                <a href="index.html" class="nav_shop">SHOP</a>
+                <a href="index.html" class="nav_logo"> FASION SOCKS</a>
+                <div>
+                    <i class="fas fa-shopping-cart img_nav_cart"></i>
+                    <a href="cart.html" class="nav_cart">CART({{cart.length}})</a>
+                </div>
+                <a href="login.html" class="nav_cart">LOGIN</a>
+            </div>
         </div>
 
         <div class="shop-page">

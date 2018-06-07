@@ -118,3 +118,13 @@ const STORAGE_KEY = 'fs_cart'
             }
         }
     });
+
+    var login_page = new Vue ({
+        el: ".login-app",
+        data: {
+            cart: []
+        },
+        created () {
+            this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        }
+    });
