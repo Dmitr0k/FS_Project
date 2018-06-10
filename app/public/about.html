@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="frameworks/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <script src="frameworks/vue.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
+    <title>About us</title>
+</head>
+
+<body>
+    <div class="about-app">
+        <div class="header">
+            <div class="header-cont">
+                <a href="about.html" class="nav_about">ABOUT US</a>
+                <!-- <a href="#" class="nav_faq">FAQ</a> -->
+                <a href="/" class="nav_shop">SHOP</a>
+                <a href="/" class="nav_logo"> FASHION SOCKS</a>
+                <div>
+                    <i class="fas fa-shopping-cart img_nav_cart"></i>
+                    <a href="cart.html" id='cart' class="nav_cart">CART({{cart.length}})</a>
+                </div>
+                <a href="login.html" id='login' class="nav_cart"> LOGIN</a>
+                <div class="dropdown">
+                        <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Vasily Pupkin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Sign out</a>
+                        </div>
+            </div>
+        </div>
+        <div class="team-section">
+            <!-- menu da pagina toda  -->
+            <div class="ps">
+                <a href="#p1">
+                    <img src="img/rom.png" alt="">
+                </a>
+                <a href="#p2">
+                    <img src="img/dim.jpg" alt="">
+                </a>
+                <a href="#p3">
+                    <img src="img/gar.png" alt="">
+                </a>
+                <a href="#p4">
+                    <img src="img/nel.jpg" alt="">
+                </a>
+                <a href="#p5">
+                    <img src="img/fedor.png" alt="" height="160">
+                </a>
+            </div>
+
+            <!-- fazendo o codigo dos nomes  -->
+            <div class="section1" id="p">
+                <span class="name"> THE TEAM </span>
+                <span class="border"></span>
+                <p>
+                    Our team consists of real professionals. We use all the most advanced technologies to achieve the desired goal. We work for
+                    a real result, listening to the opinion of each client.
+                </p>
+            </div>
+
+            <h1></h1>
+
+            <!-- dados nome2 -->
+            <div class="section" id="p1">
+                <span class="name">Roman Konovalov</span>
+                <span class="border"></span>
+                <p>
+                    The developer, a student of VSTU, likes to run away from cops on a motorcycle and listen to miyagi & eljey in a vaz priora.
+                </p>
+            </div>
+            <div class="section" id="p2">
+                <span class="name">Dmitry Kukhno</span>
+                <span class="border"></span>
+                <p>
+                    The developer, a student of VSTU, likes active rest and extreme sports.
+                </p>
+            </div>
+            <div class="section" id="p3">
+                <span class="name">Wacher Garcia</span>
+                <span class="border"></span>
+                <p>
+                    The developer, a student of VSTU from Angola, likes an active lifestyle.
+                </p>
+            </div>
+            <div class="section" id="p4">
+                <span class="name">Nelson Josemar</span>
+                <span class="border"></span>
+                <p>
+                    The developer, a student of VSTU from Angola, likes an active lifestyle.
+                </p>
+            </div>
+            <div class="section" id="p5">
+                <span class="name">Fedor Dudnikov</span>
+                <span class="border"></span>
+                <p>
+                    The developer, a student of VSTU likes to explore new things.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

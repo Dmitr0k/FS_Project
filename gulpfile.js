@@ -3,7 +3,7 @@ var   gulp = require('gulp'),
 
 gulp.task("server", function () {
 	browserSync.init({
-		server: { baseDir: './app/' }
+		server: { baseDir: './app/public' }
 	});
       gulp.watch('app/**/*.html').on('change', browserSync.reload);
       gulp.watch('app/**/*.css').on('change', browserSync.reload);

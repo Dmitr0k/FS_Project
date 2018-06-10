@@ -3,6 +3,8 @@ const STORAGE_KEY = 'fs_cart'
     var shop_app = new Vue ({
         el: ".shop-app",
         data: {
+            name: "Гаврила Кузьмич",
+            is_user: false,
             cart: [],
             user_picture: "",
             cost: "5 - 7",
@@ -19,12 +21,18 @@ const STORAGE_KEY = 'fs_cart'
                 female: false
             },
             types: {
-                regular: false,
+                regular: false,     
                 warm: false
             }
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            if (is_sign_in) {
+                this.is_user = true;
+            } else {
+                this.is_sign_in = false;
+            }
+
         },
         computed: {
             user_picture_html: function () {
@@ -127,4 +135,17 @@ const STORAGE_KEY = 'fs_cart'
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         }
+<<<<<<< HEAD:app/public/script.js
+    });
+
+    var about_page = new Vue ({
+        el: ".about-app",
+        data: {
+            cart: []
+        },
+        created () {
+            this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        }
+=======
+>>>>>>> refs/remotes/origin/master:app/scripts.js
     });

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login and Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
+    <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <script src="frameworks/vue.js"></script>
+</head>
+
+<body>
+    <div class="login-app">
+        <div class="container">
+            <div class="header">
+                <div class="header-cont">
+                    <a href="about.html" class="nav_about">ABOUT US</a>
+                    <!-- <a href="#" class="nav_faq">FAQ</a> -->
+                    <a href="/" class="nav_shop">SHOP</a>
+                    <a href="/" class="nav_logo"> FASHION SOCKS</a>
+                    <div>
+                        <i class="fas fa-shopping-cart img_nav_cart"></i>
+                        <a href="cart.html" class="nav_cart">CART({{cart.length}})</a>
+                    </div>
+                    <a href="login.html" class="nav_cart">LOGIN</a>
+                </div>
+            </div>
+            <header>
+                <h1>
+                <h1>
+            </header>
+            <section>
+                <div id="container_demo">
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+                    <div id="wrapper">
+                        <div id="login" class="animate form">
+                            <form action="#" autocomplete="on">
+                                <h1>Аuthorisation</h1>
+                                <p>
+                                    <label for="username" class="uname" data-icon="u"> Ваш адрес электронной почты или имя пользователя</label>
+                                    <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com" />
+                                </p>
+                                <p>
+                                    <label for="password" class="youpasswd" data-icon="p"> Ваш пароль
+                                    </label>
+                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" />
+                                </p>
+                                <p class="keeplogin">
+                                    <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
+                                    <label for="loginkeeping">Не выходить из системы
+                                    </label>
+                                </p>
+                                <p class="login button">
+                                    <input type="button" id='loginButton' value="Login" />
+                                </p>
+                                <p class="change_link">
+                                    Еще не зарегистрированы ?
+                                    <a href="#toregister" class="to_register">Join us</a>
+                                </p>
+                            </form>
+                        </div>
+                        <!-- comecando a parte do Registration -->
+                        <div id="register" class="animate form">
+                            <form action="#" autocomplete="on">
+                                <h1> Rеgistratiоn </h1>
+                                <p>
+                                    <label for="usernamesignup" class="uname" data-icon="u">Ваш логин
+                                    </label>
+                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                                </p>
+                                <p>
+                                    <label for="emailsignup" class="youmail" data-icon="e"> Ваш адрес электронной почты</label>
+                                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com" />
+                                </p>
+                                <p>
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Ваш пароль
+                                    </label>
+                                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO" />
+                                </p>
+                                <p>
+                                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Пожалуйста, подтвердите свой пароль</label>
+                                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"
+                                    />
+                                </p>
+                                <p class="signin button">
+                                    <input type="button" id='signupButton' value="Sign up" />
+                                </p>
+                                <p class="change_link">
+                                    Уже участник ?
+                                    <a href="#tologin" class="to_register"> Перейти и войти в систему</a>
+                                </p>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="login.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
