@@ -1,5 +1,6 @@
 var exitButton = document.getElementById('exitFromProfile'); 
 exitButton.onclick = ()=> { 
 localStorage.setItem('isUser', 'false'); 
-localStorage.removeItem('login'); 
+localStorage.removeItem('login');
+location.reload(true);
 }

@@ -29,8 +29,8 @@ const IS_USER_KEY = 'isUser'
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            this.is_user = localStorage.getItem(IS_USER_KEY);
-            this.name = localStorage.getItem(NAME_KEY);
+            this.is_user = (localStorage.getItem(IS_USER_KEY) == 'true') || false;
+            this.name = localStorage.getItem(NAME_KEY) || "";
         },
         computed: {
             user_picture_html: function () {
@@ -104,8 +104,8 @@ const IS_USER_KEY = 'isUser'
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            this.is_user = localStorage.getItem(IS_USER_KEY);
-            this.name = localStorage.getItem(NAME_KEY);
+            this.is_user = (localStorage.getItem(IS_USER_KEY) == 'true') || false;
+            this.name = localStorage.getItem(NAME_KEY) || "";
         },
         computed: {
             total_cost: function () {
@@ -148,7 +148,7 @@ const IS_USER_KEY = 'isUser'
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            this.is_user = localStorage.getItem(IS_USER_KEY);
-            this.name = localStorage.getItem(NAME_KEY);
+            this.is_user = (localStorage.getItem(IS_USER_KEY) == 'true') || false;
+            this.name = localStorage.getItem(NAME_KEY) || "";
         }
     });
