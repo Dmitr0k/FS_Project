@@ -42,6 +42,8 @@ signUp.onclick = () => {
             document.cookie = 'ShopSocksToken=' + bodyRes.token + "; path/=;"
             alert('Регистрация прошла успешно');
             location.pathname = '/';
+            localStorage.setItem('login', nameSignUp.value);
+            localStorage.setItem('isUser', 'true');
             console.log(document.cookie);
         }
     }
@@ -71,6 +73,8 @@ enterButton.onclick = () => {
         if (bodyRes.token) {
             document.cookie = 'ShopSocksToken=' + bodyRes.token + "; path/=;"
             alert('Вы успешно вошли на сайт');
+            localStorage.setItem('login', nameEnter.value);
+            localStorage.setItem('isUser', 'true');
             location.pathname = '/';
             console.log(document.cookie);
         }

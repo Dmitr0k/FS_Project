@@ -57,7 +57,7 @@ mongoClient.connect(url, (err, databases) => {
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname+'public/index.html');
+    res.sendFile(__dirname + 'public/index.html');
     // for (var indexSession = 0; indexSession < session.length; indexSession++) {
     //     if (session[indexSession] === req.cookies.ShopSocksToken) {
     //         getCountSocksInCart(session[indexSession], res);
@@ -89,7 +89,7 @@ app.post('/signUp', urlencodedParser, (req, res) => {
     session.push({ token: newToken });
 
     mongoClient.connect(url, (err, databases) => {
-        if (err) { 
+        if (err) {
             console.log('Ошибка при подключении к базе данных по адресу: ' + url);
             return res.status(400).send();
         }
@@ -109,14 +109,14 @@ app.post('/signUp', urlencodedParser, (req, res) => {
 
 app.post('/entry', urlencodedParser, (req, res) => {
     if (!req.body) return res.sendStatus(400);
-    var querryLogin;
+    var typeLogin;
     var login;
     if (req.body.login != undefined) {
-        querryLogin = 'login';
+        typeLogin = 'login';
         login = req.body.login;
     }
     else {
-        querryLogin = 'email';
+        typeLogin = 'email';
         login = req.body.email;
     }
     mongoClient.connect(url, (err, databases) => {
@@ -136,7 +136,7 @@ app.post('/entry', urlencodedParser, (req, res) => {
                 }
 
                 for (var i = 0; i < users.length; i++) {
-                    if (CryptoJS.AES.decrypt(users[i].info[querryLogin], secret).toString(CryptoJS.enc.Utf8) === login) {
+                    if (CryptoJS.AES.decrypt(users[i].info[typeLogin], secret).toString(CryptoJS.enc.Utf8) === login) {
                         var token = users[i].token;
                         databases.close();
                         console.log('успешный вход');
@@ -178,42 +178,53 @@ app.post('/entry', urlencodedParser, (req, res) => {
 //     });
 // });
 
-app.post('buyAll', urlencodedParser, (req, res) => {
-    // if (!req.body) return res.sendStatus(400);
-    // var buy = {
-    //     arrSocks = req.body.arrSocks,
-    //     dateBuy = req.body.dateBuy,
-    //     firstname = req.body.firstname,
-    //     lastname = req.body.lastname,
-    //     email = req.body.email,
-    //     country = req.body.country,
-    //     city = req.body.city,
-    //     adress = req.body.adress,
-    //     cost = req.body.cost
-    // };
-    
-    // mongoClient.connect(url, (err, databases) => {
-    //     if (err) {
-    //         console.log('Ошибка при подключении к базе данных по адресу: ' + url);
-    //         return res.status(400).send();
-    //     }
-    //     const db = databases.db('socksShopDb');
-    //     db.collection('buys').insertOne(buy,(err, newBuy) =>{
-    //         if (err) {
-    //             console.log('Ошибка при нового заказа в базу данных');
-    //             return res.status(400).send();
-    //         }
+app.post('/buyAll', urlencodedParser, (req, res) => {
+    if (!req.body) return res.sendStatus(400);
+    var buy = {};
+    buy.arrSockss = JSON.parse(req.body.arrSocks);
+    buy.dateBuy = req.body.dateBuy;
+    buy.firstname = req.body.firstname;
+    buy.lastname = req.body.lastname;
+    buy.email = req.body.email;
+    buy.country = req.body.coutry;
+    buy.city = req.body.city;
+    buy.adress = req.body.adress;
+    buy.cost = req.body.cost;
 
-    //         databases.close();
-    //         console.log('Added new buy');
-    //         res.send();
-    //     });
-    // });
+    mongoClient.connect(url, (err, databases) => {
+        if (err) {
+            console.log('Ошибка при подключении к базе данных по адресу: ' + url);
+            return res.status(400).send();
+        }
+        const db = databases.db('socksShopDb');
+        db.collection('users').find({ token: req.cookies.ShopSocksToken },
+            { projection: { info: true, _id: false } }).toArray((err, users) => {
+                if (err) {
+                    res.status(400).send();
+                    return;
+                }
+                if (users.length < 1) {
+                    res.status(400).send();
+                    return;
+                }
+                buy.login = users[0].info.login;
+                db.collection('buys').insertOne(buy, (err, newBuy) => {
+                    if (err) {
+                        console.log('Ошибка при добавлении нового заказа в базу данных');
+                        return res.status(400).send();
+                    }
+        
+                    databases.close();
+                    console.log('Added new buy');
+                    res.send();
+                });
+            });
+    });
 });
 
 
 app.get('/myCart', (req, res) => {
-    res.sendFile(__dirname+"/public/cart.html");
+    res.sendFile(__dirname + "/public/cart.html");
     // mongoClient.connect(url, (err, databases) => {
     //     if (err) {
     //         console.log('Ошибка при подключении к базе данных по адресу: ' + url);

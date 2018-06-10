@@ -1,9 +1,11 @@
 const STORAGE_KEY = 'fs_cart'
+const NAME_KEY = 'login'
+const IS_USER_KEY = 'isUser'
 
     var shop_app = new Vue ({
         el: ".shop-app",
         data: {
-            name: "Гаврила Кузьмич",
+            name: "",
             is_user: false,
             cart: [],
             user_picture: "",
@@ -27,12 +29,8 @@ const STORAGE_KEY = 'fs_cart'
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            if (is_sign_in) {
-                this.is_user = true;
-            } else {
-                this.is_sign_in = false;
-            }
-
+            this.is_user = localStorage.getItem(IS_USER_KEY);
+            this.name = localStorage.getItem(NAME_KEY);
         },
         computed: {
             user_picture_html: function () {
@@ -100,10 +98,14 @@ const STORAGE_KEY = 'fs_cart'
     var cart_app = new Vue ({
         el: ".cart-app",
         data: {
-            cart: []
+            cart: [],
+            name: "",
+            is_user: false
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            this.is_user = localStorage.getItem(IS_USER_KEY);
+            this.name = localStorage.getItem(NAME_KEY);
         },
         computed: {
             total_cost: function () {
@@ -140,9 +142,13 @@ const STORAGE_KEY = 'fs_cart'
     var about_page = new Vue ({
         el: ".about-app",
         data: {
-            cart: []
+            cart: [],
+            name: "",
+            is_user: false
         },
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            this.is_user = localStorage.getItem(IS_USER_KEY);
+            this.name = localStorage.getItem(NAME_KEY);
         }
     });
