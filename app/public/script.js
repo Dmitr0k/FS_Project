@@ -135,7 +135,6 @@ const STORAGE_KEY = 'fs_cart'
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         }
-<<<<<<< HEAD:app/public/script.js
     });
 
     var about_page = new Vue ({
@@ -146,6 +145,4 @@ const STORAGE_KEY = 'fs_cart'
         created () {
             this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         }
-=======
->>>>>>> refs/remotes/origin/master:app/scripts.js
     });
