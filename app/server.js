@@ -12,7 +12,7 @@ var hbs = require("hbs");
 
 const app = express();
 app.set("view engine", "hbs");
-var url = "mongodb://localhost:27017";
+var url = "mongodb://admin:123qweasdzxc@ds255260.mlab.com:55260/socks_shop_db";
 const secret = 'kursachIVT261';
 const session = [];
 
@@ -24,8 +24,8 @@ app.use(bodyParser.raw());
 app.use(bodyParser.text());
 
 mongoClient.connect(url, (err, databases) => {
-    var db = databases.db('socksShopDb');
-    db.collection('users').find({}, { projection: { token: 1, _id: false } }).toArray((err, arrDocs) => {
+    var collection = db.collection('users');
+    collection.find({}, { projection: { token: 1, _id: false } }).toArray((err, arrDocs) => {
         if (err) {
             console.log('Ошибка загрузки токенов');
             return;
