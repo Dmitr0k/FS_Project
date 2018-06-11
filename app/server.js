@@ -12,7 +12,7 @@ var hbs = require("hbs");
 
 const app = express();
 app.set("view engine", "hbs");
-var url = "mongodb://admin:123qweasdzxc@ds255260.mlab.com:55260/socks_shop_db";
+var url = "mongodb://admin:123qweasdzxc@ds153380.mlab.com:53380/fs";
 const secret = 'kursachIVT261';
 const session = [];
 
@@ -24,8 +24,8 @@ app.use(bodyParser.raw());
 app.use(bodyParser.text());
 
 mongoClient.connect(url, (err, databases) => {
-    var collection = db.collection('users');
-    collection.find({}, { projection: { token: 1, _id: false } }).toArray((err, arrDocs) => {
+    var db = databases.db('fs');
+    db.collection('users').find({}, { projection: { token: 1, _id: false } }).toArray((err, arrDocs) => {
         if (err) {
             console.log('Ошибка загрузки токенов');
             return;
@@ -93,7 +93,7 @@ app.post('/signUp', urlencodedParser, (req, res) => {
             console.log('Ошибка при подключении к базе данных по адресу: ' + url);
             return res.status(400).send();
         }
-        const db = databases.db('socksShopDb');
+        const db = databases.db('fs');
         db.collection("users").insertOne({ token: newToken, info: bodyToken, cart: [] }, (err, newUser) => {
             if (err) {
                 console.log('Ошибка при добавлении пользователя в базу данных');
@@ -124,7 +124,7 @@ app.post('/entry', urlencodedParser, (req, res) => {
             console.log('Ошибка при подключении к базе данных по адресу: ' + url);
             return res.status(400).send();
         }
-        const db = databases.db('socksShopDb');
+        const db = databases.db('fs');
         var passw = CryptoJS.SHA224(req.body.password).toString();
         db.collection('users').find({ 'info.password': CryptoJS.SHA224(req.body.password).toString() },
             { info: true, token: true }).toArray((error, users) => {
@@ -196,7 +196,7 @@ app.post('/buyAll', urlencodedParser, (req, res) => {
             console.log('Ошибка при подключении к базе данных по адресу: ' + url);
             return res.status(400).send();
         }
-        const db = databases.db('socksShopDb');
+        const db = databases.db('fs');
         db.collection('users').find({ token: req.cookies.ShopSocksToken },
             { projection: { info: true, _id: false } }).toArray((err, users) => {
                 if (err) {
@@ -255,7 +255,7 @@ function getCountSocksInCart(currentToken, res) {
             console.log('Ошибка при подключении к базе данных по адресу: ' + url);
             return res.status(400).send();
         }
-        const db = databases.db('socksShopDb');
+        const db = databases.db('fs');
         //var passw = CryptoJS.SHA224(req.body.password).toString();
         db.collection('users').find({ token: currentToken },
             { projection: { cart: true, _id: false } }).toArray((error, users) => {
