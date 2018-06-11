@@ -31,7 +31,7 @@
                     <i class="fas fa-shopping-cart img_nav_cart"></i>
                     <a href="/myCart" class="nav_cart">CART({{cart.length}})</a>
                 </div>
-                <a v-if="!is_user"href="login.html" id='login' class="nav_cart"> LOGIN</a>
+                <a v-if="!is_user" href="login.html" id='login' class="nav_cart"> LOGIN</a>
                 <div v-if="is_user" class="dropdown">
                     <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -43,115 +43,115 @@
                     </div>
                 </div>
             </div>
-            <div class="cart-cont">
-                <div class="cart-items" v-if="cart.length">
-                    <div class="cart-title">
-                        Shopping Cart
-                    </div>
-                    <transition-group name="fade">
-                        <div class="cart-item" v-for="(item, index) in cart" v-bind:key="item">
-                            <a @click="delete_from_cart(index)">
-                                <i class="fas fa-times fa-2x cart-delete"></i>
-                            </a>
-                            <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
-                            <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
-                            <div class="cart-text-item cart-info-block">
-                                Socks {{item.gender}} {{item.type}}
-                            </div>
-                            <div class="cart-text-item cart-size-block">
-                                Size: {{item.size}}
-                            </div>
-                            <div class="cart-text-item">
-                                ${{item.cost}}
-                            </div>
-                        </div>
-                    </transition-group>
+        </div>
+        <div class="cart-cont">
+            <div class="cart-items" v-if="cart.length">
+                <div class="cart-title">
+                    Shopping Cart
                 </div>
-                <form class="order" id='buyAll' v-if="cart.length">
-                    <h3 class="mb-2 text-center">Please fill in your details</h3>
-                    <h6 class="mb-5 text-center">in order to we can send you an order</h6>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="firstname">First name</label>
-                            <input type="text" class="form-control" id="firstname" placeholder="First name">
+                <transition-group name="fade">
+                    <div class="cart-item" v-for="(item, index) in cart" v-bind:key="item">
+                        <a @click="delete_from_cart(index)">
+                            <i class="fas fa-times fa-2x cart-delete"></i>
+                        </a>
+                        <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
+                        <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
+                        <div class="cart-text-item cart-info-block">
+                            Socks {{item.gender}} {{item.type}}
                         </div>
-                        <div class="col-md-6">
-                            <label for="lastname">Last name</label>
-                            <input type="text" class="form-control" id="lastname" placeholder="Last name">
+                        <div class="cart-text-item cart-size-block">
+                            Size: {{item.size}}
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email-adress">Email</label>
-                        <input type="email" class="form-control" id="email-adress" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputCity">City</label>
-                            <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputCoutry">Country</label>
-                            <select id="inputCoutry" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>USA</option>
-                                <option>Ukraine</option>
-                                <option>Poland</option>
-                                <option>Germany</option>
-                                <option>Russia</option>
-                                <option>Angola</option>
-                                <option>China</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
+                        <div class="cart-text-item">
+                            ${{item.cost}}
                         </div>
                     </div>
-                    <h3 class="mt-5 mb-5" id='totalCost'>All total: ${{total_cost}}</h3>
-                    <button type="submit" class="btn btn-primary">Buy All</button>
-                </form>
-                <div class="empty_cart" v-else>
-                    <h3>Ваша корзина пуста!</h3>
-                    <h6>Вернитесь к покупкам!</h5>
-                </div>
+                </transition-group>
             </div>
-            <div class="footer">
-                <div class="cont-footer">
-                    <div class="left-footer">
-                        <img src="img/logo.png" class="logo-footer">
-                        <ul>
-                            <li>
-                                <a href="#" class="a_footer">Home</a>
-                            </li>
-                            <li>
-                                <a href="#" class="a_footer">Blog</a>
-                            </li>
-                            <li>
-                                <a href="#" class="a_footer">About</a>
-                            </li>
-                            <li>
-                                <a href="#" class="a_footer">FAQ</a>
-                            </li>
-                        </ul>
-                        <div class="social">
-                            <i class="fab fa-vk fa-2x soc-fa"></i>
-                            <i class="fab fa-facebook-f fa-2x soc-fa"></i>
-                            <i class="fab fa-instagram fa-2x soc-fa"></i>
-                            <i class="fab fa-twitter fa-2x soc-fa"></i>
-                        </div>
-                        <p class="footer-rights">© 2018 Fasion socks company.  All rights reserved.</p>
+            <form class="order" id='buyAll' v-if="cart.length">
+                <h3 class="mb-2 text-center">Please fill in your details</h3>
+                <h6 class="mb-5 text-center">in order to we can send you an order</h6>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="firstname">First name</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="First name">
                     </div>
-                    <div class="right-footer">
-                        <h4 class="contact-title">Contact Us</h4>
-                        <div class="callback-form">
-                            <input type="email" class="input-email" placeholder="example@email.com">
-                            <textarea name="message" class="text-message" placeholder="Your message here"></textarea>
-                            <button type="button" class="btn btn-dark mt-3">Send</button>
-                        </div>
+                    <div class="col-md-6">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email-adress">Email</label>
+                    <input type="email" class="form-control" id="email-adress" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputCoutry">Country</label>
+                        <select id="inputCoutry" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>USA</option>
+                            <option>Ukraine</option>
+                            <option>Poland</option>
+                            <option>Germany</option>
+                            <option>Russia</option>
+                            <option>Angola</option>
+                            <option>China</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+                <h3 class="mt-5 mb-5" id='totalCost'>All total: ${{total_cost}}</h3>
+                <button type="submit" class="btn btn-primary">Buy All</button>
+            </form>
+            <div class="empty_cart" v-else>
+                <h3>Ваша корзина пуста!</h3>
+                <h6>Вернитесь к покупкам!</h5>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="cont-footer">
+                <div class="left-footer">
+                    <img src="img/logo.png" class="logo-footer">
+                    <ul>
+                        <li>
+                            <a href="#" class="a_footer">Home</a>
+                        </li>
+                        <li>
+                            <a href="#" class="a_footer">Blog</a>
+                        </li>
+                        <li>
+                            <a href="#" class="a_footer">About</a>
+                        </li>
+                        <li>
+                            <a href="#" class="a_footer">FAQ</a>
+                        </li>
+                    </ul>
+                    <div class="social">
+                        <i class="fab fa-vk fa-2x soc-fa"></i>
+                        <i class="fab fa-facebook-f fa-2x soc-fa"></i>
+                        <i class="fab fa-instagram fa-2x soc-fa"></i>
+                        <i class="fab fa-twitter fa-2x soc-fa"></i>
+                    </div>
+                    <p class="footer-rights">© 2018 Fasion socks company.  All rights reserved.</p>
+                </div>
+                <div class="right-footer">
+                    <h4 class="contact-title">Contact Us</h4>
+                    <div class="callback-form">
+                        <input type="email" class="input-email" placeholder="example@email.com">
+                        <textarea name="message" class="text-message" placeholder="Your message here"></textarea>
+                        <button type="button" class="btn btn-dark mt-3">Send</button>
                     </div>
                 </div>
             </div>
