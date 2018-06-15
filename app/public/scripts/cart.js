@@ -1,6 +1,4 @@
 var form = document.getElementById('buyAll');
-
-form.onsubmit = () => {
     var firstname = document.getElementById('firstname');
     var lastname = document.getElementById('lastname');
     var email = document.getElementById('email-adress');
@@ -9,21 +7,27 @@ form.onsubmit = () => {
     var inputCountry = document.getElementById('inputCoutry');
     var zip = document.getElementById('inputZip');
     var totalCost = document.getElementById('totalCost');
-    if (!getCookie('ShopSocksToken')) {
-        alert('Чтобы купить товар, Зарегестрируйтесь');
-        return;
+
+form.onsubmit = () => {
+
+    //console.log(localStorage.getItem('isUser'));
+    if (localStorage.getItem('isUser')=='false' || getCookie('ShopSocksToken')=="") {
+        alert('Чтобы купить товар, Зарегестрируйтесь или войдите в свою учетную запись');
+        return false;
     }
-    var cartItems = document.getElementsByClassName('cart-item');
-    alert(cartItems[2].children[3].innerHTML);
+    //var localSt = JSON.parse(localStorage.fs_cart);
+    //var cartItems = document.getElementsByClassName('cart-item');
     var arraySocks = [];
-    for (var i = 0; i < cartItems.length; i++) {
-        arraySocks[i] = {
-            size: cartItems[i].children[3].textContent.replace(/(^\s*)|(\s*)$/g, ''),
-            cost: cartItems[i].children[4].textContent.replace(/(^\s*)|(\s*)$/g, ''),
-            feature: cartItems[i].children[2].textContent.replace(/(^\s*)|(\s*)$/g, '')
-        };
-    }
-    var reqBody = 'arrSocks=' + encodeURIComponent(JSON.stringify(arraySocks)) +
+    // for (var i = 0; i < localSt.length; i++) {
+    //     arraySocks[i] = {
+    //         size: localSt[i].size,
+    //         cost: localSt[i].cost,
+    //         feature: localSt[i].gender+' '+ localSt[i].type
+    //     };
+    // }
+
+    
+    var reqBody = 'arrSocks=' + encodeURIComponent(localStorage.fs_cart) +
         '&dateBuy=' + encodeURIComponent(new Date().toUTCString()) +
         '&firstname=' + encodeURIComponent(firstname.value) +
         '&lastname=' + encodeURIComponent(lastname.value) +
@@ -31,20 +35,21 @@ form.onsubmit = () => {
         '&country=' + encodeURIComponent(inputCountry.value) +
         '&city=' + encodeURIComponent(inputCity.value) +
         '&adress=' + encodeURIComponent(inputAdress.value) +
-        '&cost=' + encodeURIComponent(totalCost.textContent.substring(11, totalCost.textContent.length));
+        '&cost=' + encodeURIComponent(totalCost.textContent.substring(11, totalCost.textContent.length))+
+        '&zip=' + encodeURIComponent(zip.value);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/buyAll');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(reqBody);
     xhr.onreadystatechange = () => {
         if (xhr.readyState != 4)
-            return;
+            return ;
         //var bodyRes = JSON.parse(xhr.responseText);
         if (xhr.status != 200) {
-            alert('Произошла ошикба');
+            alert('Произошла ошибка');
             return;
         }
-       alert('Добавлено');
+       alert('Ваш заказ принят');
     }
     return false;
 }

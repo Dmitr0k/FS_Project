@@ -30,7 +30,7 @@
                 <a href="/" class="nav_logo"> FASHION SOCKS</a>
                 <div>
                     <i class="fas fa-shopping-cart img_nav_cart"></i>
-                    <a href="/myCart" id='cart' class="nav_cart">CART({{cart.length}})</a>
+                    <a href="cart.html" id='cart' class="nav_cart">CART({{cart.length}})</a>
                 </div>
                 <a v-if="!is_user"href="login.html" id='login' class="nav_cart"> LOGIN</a>
                 <div v-if="is_user" class="dropdown">
@@ -39,7 +39,7 @@
                         {{name}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="profile.html">Profile</a>
                         <a class="dropdown-item" href="#" id='exitFromProfile'>Sign out</a>
                     </div>
                 </div>
@@ -145,8 +145,8 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
-    <script src="button_handler.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/button_handler.js"></script>
 </body>
 
 </html>

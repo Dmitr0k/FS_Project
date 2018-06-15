@@ -15,12 +15,12 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
         crossorigin="anonymous"></script>
     <script src="frameworks/vue.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <title>Shop</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <title>Profile</title>
 </head>
 
 <body>
-    <div class="cart-app">
+    <div class="profile-app">
         <div class="header">
             <div class="header-cont">
                 <a href="about.html" class="nav_about">ABOUT US</a>
@@ -38,22 +38,56 @@
                         {{name}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#" id='exitFromProfile'>Sign out</a>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="user-nickname">
+            <h4>Welcome back {{name}}!</h4>
+            <h4>You can to see your orders here.</h4>
+        </div>
         <div class="cart-cont">
             <div class="cart-items" v-if="cart.length">
-                <div class="cart-title">
-                    Shopping Cart
-                </div>
-                <transition-group name="fade">
-                    <div class="cart-item" v-for="(item, index) in cart" v-bind:key="item">
-                        <a @click="delete_from_cart(index)">
-                            <i class="fas fa-times fa-2x cart-delete"></i>
-                        </a>
+                <div class="order" v-for="(order, index_order) in orders">
+                    <div class="order-number">
+                        Order №{{index_order+1}}
+                    </div>
+                    <div class="order-info">
+                        <table>
+                            <tr>
+                                <td style="width: 180px;"><h6><big>Full name:</big></h6></td>
+                                <td><h6>{{order.firstname}} {{order.lastname}}</h6></td>
+                            </tr>
+                            <tr>
+                                <td><h6><big>Email:</big></h6></td>
+                                <td><h6>{{order.email}}</h6></td>
+                            </tr>
+                            <tr>
+                                <td><h6><big>Adress:</big></h6></td>
+                                <td><h6>{{order.adress}}</h6></td>
+                            </tr>
+                            <tr>
+                                    <td><h6><big>&nbsp;</big></h6></td>
+                                    <td><h6>{{order.city}} {{order.country}} {{order.zip}}</h6></td>
+                            </tr>
+                            <tr>
+                                    <td><h6><big>Order date:</big></h6></td>
+                                    <td><h6>{{order.dateBuy}}</h6></td>
+                            </tr>
+                            <tr>
+                                    <td><h6><big>&nbsp;</big></h6></td>
+                                    <td><h6>&nbsp;</h6></td>
+                            </tr>
+                            <tr>
+                                    <td><h6><big>Total cost:</big></h6></td>
+                                    <td><h6>{{order.cost}}</h6></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="cart-item" v-for="(item, index) in order.arrSocks">
                         <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
                         <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
                         <div class="cart-text-item cart-info-block">
@@ -66,57 +100,10 @@
                             ${{item.cost}}
                         </div>
                     </div>
-                </transition-group>
+                </div>
             </div>
-            <form class="order" id='buyAll' v-if="cart.length">
-                <h3 class="mb-2 text-center">Please fill in your details</h3>
-                <h6 class="mb-5 text-center">in order to we can send you an order</h6>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="firstname">First name</label>
-                        <input type="text" class="form-control" id="firstname" placeholder="First name">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastname">Last name</label>
-                        <input type="text" class="form-control" id="lastname" placeholder="Last name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email-adress">Email</label>
-                    <input type="email" class="form-control" id="email-adress" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputCoutry">Country</label>
-                        <select id="inputCoutry" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>USA</option>
-                            <option>Ukraine</option>
-                            <option>Poland</option>
-                            <option>Germany</option>
-                            <option>Russia</option>
-                            <option>Angola</option>
-                            <option>China</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
-                </div>
-                <h3 class="mt-5 mb-5" id='totalCost'>All total: ${{total_cost}}</h3>
-                <button type="submit" class="btn btn-primary">Buy All</button>
-            </form>
             <div class="empty_cart" v-else>
-                <h3>Ваша корзина пуста!</h3>
+                <h3>Заказы отсутствуют!</h3>
                 <h6>Вернитесь к покупкам!</h5>
             </div>
         </div>
@@ -159,7 +146,6 @@
     </div>
     <script src="scripts/script.js"></script>
     <script src="scripts/button_handler.js"></script>
-    <script src="scripts/cart.js"></script>
 </body>
 
 </html>

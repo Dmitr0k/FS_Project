@@ -23,19 +23,19 @@ app.use(urlencodedParser);
 app.use(bodyParser.raw());
 app.use(bodyParser.text());
 
-mongoClient.connect(url, (err, databases) => {
-    var db = databases.db('fs');
-    db.collection('users').find({}, { projection: { token: 1, _id: false } }).toArray((err, arrDocs) => {
-        if (err) {
-            console.log('Ошибка загрузки токенов');
-            return;
-        }
+// mongoClient.connect(url, (err, databases) => {
+//     var db = databases.db('fs');
+//     db.collection('users').find({}, { projection: { token: 1, _id: false } }).toArray((err, arrDocs) => {
+//         if (err) {
+//             console.log('Ошибка загрузки токенов');
+//             return;
+//         }
 
-        arrDocs.forEach((currDoc) => {
-            session.push(currDoc.token);
-        });
-    });
-});
+//         arrDocs.forEach((currDoc) => {
+//             session.push(currDoc.token);
+//         });
+//     });
+// });
 
 
 // hbs.registerHelper('getCartItem', (arrSock) => {
@@ -94,16 +94,37 @@ app.post('/signUp', urlencodedParser, (req, res) => {
             return res.status(400).send();
         }
         const db = databases.db('fs');
-        db.collection("users").insertOne({ token: newToken, info: bodyToken, cart: [] }, (err, newUser) => {
-            if (err) {
-                console.log('Ошибка при добавлении пользователя в базу данных');
-                return res.status(400).send();
+
+
+        db.collection('users').find({ 'info.password': bodyToken.password }).toArray((error, users) => {
+            if (error) return res.status(400).send();
+            if (users.length != 0) {
+                for (var i = 0; i < users.length; i++) {
+                    if (CryptoJS.AES.decrypt(users[i].info.login, secret).toString(CryptoJS.enc.Utf8) ===
+                        CryptoJS.AES.decrypt(req.body.login, secret).toString(CryptoJS.enc.Utf8) &&
+                        CryptoJS.AES.decrypt(users[i].info.email, secret).toString(CryptoJS.enc.Utf8) ===
+                        CryptoJS.AES.decrypt(req.body.email, secret).toString(CryptoJS.enc.Utf8)) {
+                        console.log('Пользователь с такими данными уже существует');
+                        return res.send({ status: 'alreadyIs', token: false });
+                        return;
+                    }
+                }
             }
 
-            databases.close();
-            console.log('Added new User');
-            res.send({ 'status': true, 'token': newToken });
+
+            db.collection("users").insertOne({ token: newToken, info: bodyToken, cart: [] }, (err, newUser) => {
+                if (err) {
+                    console.log('Ошибка при добавлении пользователя в базу данных');
+                    return res.status(400).send();
+                }
+
+                databases.close();
+                console.log('Added new User');
+                res.send({ status: 'ok', 'token': newToken });
+            });
+
         });
+
     });
 });
 
@@ -131,8 +152,7 @@ app.post('/entry', urlencodedParser, (req, res) => {
                 if (error) return res.status(400).send();
                 if (users.length == 0) {
                     databases.close();
-                    res.send({ 'status': false, token: false });
-                    return;
+                    return res.send({ status: 'noMatch', token: false });
                 }
 
                 for (var i = 0; i < users.length; i++) {
@@ -140,13 +160,13 @@ app.post('/entry', urlencodedParser, (req, res) => {
                         var token = users[i].token;
                         databases.close();
                         console.log('успешный вход');
-                        res.send({ 'status': true, token: token });
+                        return res.send({ status: 'ok', token: token });
                         return;
                     }
                 }
 
                 databases.close();
-                res.send({ 'status': false });
+                return res.send({ status: 'noMatch', token: false });
             });
     });
 });
@@ -179,17 +199,22 @@ app.post('/entry', urlencodedParser, (req, res) => {
 // });
 
 app.post('/buyAll', urlencodedParser, (req, res) => {
-    if (!req.body) return res.sendStatus(400);
+    if (!req.body || !req.cookies.ShopSocksToken) return res.sendStatus(400);
+    if (!req.cookies.ShopSocksToken) {
+        console.log('Invalid token');
+        return res.sendStatus(404);
+    }
     var buy = {};
-    buy.arrSockss = JSON.parse(req.body.arrSocks);
+    buy.arrSocks = JSON.parse(req.body.arrSocks);
     buy.dateBuy = req.body.dateBuy;
     buy.firstname = req.body.firstname;
     buy.lastname = req.body.lastname;
     buy.email = req.body.email;
-    buy.country = req.body.coutry;
+    buy.country = req.body.country;
     buy.city = req.body.city;
     buy.adress = req.body.adress;
     buy.cost = req.body.cost;
+    buy.zip = req.body.zip;
 
     mongoClient.connect(url, (err, databases) => {
         if (err) {
@@ -213,15 +238,64 @@ app.post('/buyAll', urlencodedParser, (req, res) => {
                         console.log('Ошибка при добавлении нового заказа в базу данных');
                         return res.status(400).send();
                     }
-        
-                    databases.close();
-                    console.log('Added new buy');
-                    res.send();
+
+                    db.collection('users').findOneAndUpdate({ token: req.cookies.ShopSocksToken },
+                        { $push: { cart: { ref: newBuy.ops[0]._id.toString() } } }, { returnOriginal: false },
+                        //  {projection: {cart: 1, _id: false}}, 
+                        (err, user) => {
+                            if (err) return res.status(400).send();
+                            console.log('added new buy');
+                            res.end();
+                            databases.close();
+                            return;
+                        });
                 });
             });
     });
 });
 
+
+app.get('/myProfile', (req, res) => {
+    if (!req.cookies.ShopSocksToken) {
+        console.log('Invalid token');
+        return res.sendStatus(404);
+    }
+
+    mongoClient.connect(url, (err, databases) => {
+        if (err) {
+            console.log('Ошибка при подключении к базе данных по адресу: ' + url);
+            return res.status(400).send();
+        }
+        const db = databases.db('fs');
+        var arrBuysForUsers = [];
+        db.collection('users').find({ token: req.cookies.ShopSocksToken },
+            { projection: { cart: true, _id: false } }).toArray((err, users) => {
+                if (err || users.length < 1) {
+                    res.status(400).send();
+                    return;
+                }
+                var cart = users[0].cart;
+                for (let indexBuy = 0; indexBuy < cart.length; indexBuy++) {
+                    db.collection('buys').find({ _id: new objectId(cart[indexBuy].ref) },
+                        { projection: { _id: false } }).toArray((err, currenBuy) => {
+                            if (err || currenBuy.length < 1) {
+                                res.status(400).send();
+                                return;
+                            }
+                            delete currenBuy[0].login;
+                            arrBuysForUsers.push(currenBuy[0]);
+                            if (indexBuy + 1 == cart.length)
+                                res.send(JSON.stringify(arrBuysForUsers));
+                        });
+
+                }
+
+
+            });
+    });
+
+
+});
 
 app.get('/myCart', (req, res) => {
     res.sendFile(__dirname + "/public/cart.html");
@@ -243,6 +317,13 @@ app.get('/myCart', (req, res) => {
 
 });
 
+
+app.use(function(req, res, next) {
+    //res.status(404).send('Sorry cant find that!');
+    res.sendFile(__dirname + "/public/404.html")
+});
+
+
 const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log('server started on http://localhost:3000');
@@ -250,31 +331,31 @@ app.listen(port, () => {
 
 
 
-function getCountSocksInCart(currentToken, res) {
-    mongoClient.connect(url, (err, databases) => {
-        if (err) {
-            console.log('Ошибка при подключении к базе данных по адресу: ' + url);
-            return res.status(400).send();
-        }
-        const db = databases.db('fs');
-        //var passw = CryptoJS.SHA224(req.body.password).toString();
-        db.collection('users').find({ token: currentToken },
-            { projection: { cart: true, _id: false } }).toArray((error, users) => {
-                if (error) return res.status(400).send();
-                if (users.length == 0) {
-                    databases.close();
-                    res.send({ 'status': false, token: false });
-                    return;
-                }
+// function getCountSocksInCart(currentToken, res) {
+//     mongoClient.connect(url, (err, databases) => {
+//         if (err) {
+//             console.log('Ошибка при подключении к базе данных по адресу: ' + url);
+//             return res.status(400).send();
+//         }
+//         const db = databases.db('fs');
+//         //var passw = CryptoJS.SHA224(req.body.password).toString();
+//         db.collection('users').find({ token: currentToken },
+//             { projection: { cart: true, _id: false } }).toArray((error, users) => {
+//                 if (error) return res.status(400).send();
+//                 if (users.length == 0) {
+//                     databases.close();
+//                     res.send({ 'status': false, token: false });
+//                     return;
+//                 }
 
-                for (var i = 0; i < users.length; i++) {
-                    res.render(__dirname + '/public/views/' + 'index.hbs', {
-                        countSocks: users[i].cart.length + ''
-                    });
-                }
+//                 for (var i = 0; i < users.length; i++) {
+//                     res.render(__dirname + '/public/views/' + 'index.hbs', {
+//                         countSocks: users[i].cart.length + ''
+//                     });
+//                 }
 
-                // databases.close();
-                //res.send({ 'status': false });
-            });
-    });
-}
+//                 // databases.close();
+//                 //res.send({ 'status': false });
+//             });
+//     });
+// }

@@ -139,88 +139,6 @@ li {
     text-decoration: none;
 }
 
-.pictures {
-    width: 735px;
-    position: absolute;
-}
-
-.top-mask {
-    opacity: .4;
-}
-
-.user-picture {
-    max-height: 440px;
-}
-
-.opt_pic {
-    width: 735px;
-    position: absolute;
-    margin-left: 735px;
-}
-.blue-btn {
-    width: 270px;
-    height: 53px;
-    border-radius: 5px;
-    background-color: #4184f3;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-    font-family: LucidaGrande;
-    font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.5px;
-    text-align: center;
-    color: #ffffff;
-    margin: 30px;
-    margin-bottom: 0;
-    outline: none;
-}
-
-.pink-btn {
-    width: 250px;
-    height: 53px;
-    border-radius: 5px;
-    background-color: #f341a5;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-    color: #ffffff;
-    font-family: LucidaGrande;
-    font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.5px;
-    text-align: center;
-    color: #ffffff;
-    margin: 25px;
-    outline: none;
-}
-
-.btns-img {
-    display: inline-block;
-}
-
-.btns-buy {
-    margin-left: 200px;
-    margin-top: 50px;
-    width: 300px;
-
-}
-
-.btns-left {
-    margin-left: 50px;
-    padding: 50px;
-    margin-top: -150px;
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    width: 600px;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-}
-
 .footer {
     background-color: #292c2f;
     width: 100%;
@@ -407,12 +325,18 @@ li {
     min-height: 900px;
     width: 1470px;
     margin: 0 auto;
-    padding-top: 100px;
     padding-bottom: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
+}
+
+.user-nickname {
+    width: 1470px;
+    margin: 0 auto;
+    padding-top: 100px;
+    text-align: center;
 }
 
 .cart-items {
@@ -421,7 +345,7 @@ li {
     width: 700px;
 }
 
-.cart-title {
+.order-number {
     height: 60px;
     border-bottom: 1px solid #E1E8EE;
     padding: 20px 30px;
@@ -429,6 +353,26 @@ li {
     font-size: 18px;
     font-weight: 400;
   }
+
+.order-info {
+    padding: 45px;
+    padding-left: 27%;
+}
+
+.order-info h6 {
+    line-height: 30px;
+}
+
+.order hr {
+    border: 0;
+    color: white;
+    background-color: #fff;
+    height: 1px;
+}
+
+.order-info big {
+    color: orange;
+}
   
   .cart-item {
       margin: 10px;
