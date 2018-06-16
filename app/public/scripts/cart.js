@@ -50,7 +50,7 @@ form.onsubmit = () => {
             return;
         }
         alert('Ваш заказ принят');
-        localStorage.removeItem('fs-cart');
+        localStorage.removeItem('fs_cart');
         location.reload(true);
     }
     return false;
