@@ -88,7 +88,7 @@
                     </div>
                     <hr>
                     <div class="cart-item" v-for="(item, index) in order.arrSocks">
-                        <img v-if="isValidUrl(index)" :src="item.user_picture" class="cart-bg-socks">
+                        <img v-if="isValidUrl(item.user_picture)" :src="item.user_picture" class="cart-bg-socks">
                         <img v-else src="http://placehold.it/170x120/" class="cart-bg-socks">
                         <div class="cart-text-item cart-info-block">
                             Socks {{item.gender}} {{item.type}}

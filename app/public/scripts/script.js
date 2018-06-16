@@ -170,17 +170,15 @@ var profile_page = new Vue({
                 return;
 
             this.orders = JSON.parse(xhr.responseText);
-           console.log(this.orders);
         }
         this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         this.is_user = (localStorage.getItem(IS_USER_KEY) == 'true') || false;
         this.name = localStorage.getItem(NAME_KEY) || "";
-        console.log(this.cart);
     },
     methods: {
-        isValidUrl: function (index) {
+        isValidUrl: function (url) {
             var regexp_url = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-            return regexp_url.test(this.cart[index].user_picture);
+            return regexp_url.test(url);
         }
     }
 });
