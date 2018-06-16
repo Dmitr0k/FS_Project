@@ -1,17 +1,17 @@
 var form = document.getElementById('buyAll');
-    var firstname = document.getElementById('firstname');
-    var lastname = document.getElementById('lastname');
-    var email = document.getElementById('email-adress');
-    var inputAdress = document.getElementById('inputAddress');
-    var inputCity = document.getElementById('inputCity');
-    var inputCountry = document.getElementById('inputCoutry');
-    var zip = document.getElementById('inputZip');
-    var totalCost = document.getElementById('totalCost');
+var firstname = document.getElementById('firstname');
+var lastname = document.getElementById('lastname');
+var email = document.getElementById('email-adress');
+var inputAdress = document.getElementById('inputAddress');
+var inputCity = document.getElementById('inputCity');
+var inputCountry = document.getElementById('inputCoutry');
+var zip = document.getElementById('inputZip');
+var totalCost = document.getElementById('totalCost');
 
 form.onsubmit = () => {
 
     //console.log(localStorage.getItem('isUser'));
-    if (localStorage.getItem('isUser')=='false' || getCookie('ShopSocksToken')=="") {
+    if (localStorage.getItem('isUser') == 'false' || getCookie('ShopSocksToken') == "") {
         alert('Чтобы купить товар, Зарегестрируйтесь или войдите в свою учетную запись');
         return false;
     }
@@ -26,7 +26,7 @@ form.onsubmit = () => {
     //     };
     // }
 
-    
+
     var reqBody = 'arrSocks=' + encodeURIComponent(localStorage.fs_cart) +
         '&dateBuy=' + encodeURIComponent(new Date().toUTCString()) +
         '&firstname=' + encodeURIComponent(firstname.value) +
@@ -35,7 +35,7 @@ form.onsubmit = () => {
         '&country=' + encodeURIComponent(inputCountry.value) +
         '&city=' + encodeURIComponent(inputCity.value) +
         '&adress=' + encodeURIComponent(inputAdress.value) +
-        '&cost=' + encodeURIComponent(totalCost.textContent.substring(11, totalCost.textContent.length))+
+        '&cost=' + encodeURIComponent(totalCost.textContent.substring(11, totalCost.textContent.length)) +
         '&zip=' + encodeURIComponent(zip.value);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/buyAll');
@@ -43,13 +43,15 @@ form.onsubmit = () => {
     xhr.send(reqBody);
     xhr.onreadystatechange = () => {
         if (xhr.readyState != 4)
-            return ;
+            return;
         //var bodyRes = JSON.parse(xhr.responseText);
         if (xhr.status != 200) {
             alert('Произошла ошибка');
             return;
         }
-       alert('Ваш заказ принят');
+        alert('Ваш заказ принят');
+        localStorage.removeItem('fs-cart');
+        location.reload(true);
     }
     return false;
 }
